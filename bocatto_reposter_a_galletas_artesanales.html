@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="es" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bocatto | Galletas Artesanales & Suspiros</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        cream: '#FDFBF7',
+                        'cream-dark': '#F4EFE6',
+                        bocatto: {
+                            red: '#C41E3A', // Rojo de la jalea de punto rojo
+                            'red-dark': '#8B0000',
+                            gold: '#D4AF37',
+                            brown: '#3D2314',
+                            pink: '#F8C8DC',
+                            vanilla: '#FFF5E1'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Floating Animation Keyframes */
+        @keyframes floatSlow {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+        @keyframes floatFast {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(-8deg); }
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(196, 30, 58, 0.3); }
+            50% { box-shadow: 0 0 30px rgba(196, 30, 58, 0.6); }
+        }
+        @keyframes shine {
+            100% { left: 125%; }
+        }
+
+        .animate-float-slow { animation: floatSlow 6s ease-in-out infinite; }
+        .animate-float-fast { animation: floatFast 4s ease-in-out infinite; }
+        .animate-pulse-glow { animation: pulseGlow 3s infinite; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #FDFBF7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #C41E3A;
+            border-radius: 999px;
+        }
+
+        /* Glassmorphism Effect */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+        }
+
+        .glass-nav {
+            background: rgba(253, 251, 247, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+        }
+
+        /* 3D Card Hover Perspective */
+        .card-3d {
+            transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            transform-style: preserve-3d;
+        }
+        .card-3d:hover {
+            transform: translateY(-10px) rotateX(4deg) rotateY(-2deg);
+            box-shadow: 0 25px 50px -12px rgba(61, 35, 20, 0.15);
+        }
+
+        /* Custom Shiny Effect for CTA */
+        .btn-shine {
+            position: relative;
+            overflow: hidden;
+        }
+        .btn-shine::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -60%;
+            width: 50%;
+            height: 200%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: rotate(30deg);
+            transition: all 0.6s ease;
+        }
+        .btn-shine:hover::after {
+            animation: shine 1.2s ease-in-out;
+        }
+    </style>
+</head>
+<body class="bg-cream text-bocatto-brown font-sans antialiased overflow-x-hidden selection:bg-bocatto-red selection:text-white">
+
+    <!-- NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 right-0 z-40 glass-nav transition-all duration-300 border-b border-bocatto-red/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-full bg-bocatto-red flex items-center justify-center text-white text-xl font-serif font-bold shadow-md transform group-hover:rotate-12 transition-transform duration-300">
+                    B
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-serif text-2xl font-bold tracking-tight text-bocatto-brown group-hover:text-bocatto-red transition-colors">
+                        Bocatto<span class="text-bocatto-red">.</span>
+                    </span>
+                    <span class="text-[10px] tracking-widest text-bocatto-red font-semibold uppercase -mt-1">Repostería Dulce</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 font-medium text-sm">
+                <a href="#inicio" class="hover:text-bocatto-red transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-bocatto-red hover:after:w-full after:transition-all">Inicio</a>
+                <a href="#productos" class="hover:text-bocatto-red transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-bocatto-red hover:after:w-full after:transition-all">Productos Estrellas</a>
+                <a href="#esencia" class="hover:text-bocatto-red transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-bocatto-red hover:after:w-full after:transition-all">Nuestra Esencia</a>
+                <a href="#contacto" class="hover:text-bocatto-red transition-colors py-1 relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-bocatto-red hover:after:w-full after:transition-all">Contacto</a>
+            </nav>
+
+            <!-- Action Buttons -->
+            <div class="flex items-center gap-4">
+                <!-- Cart Trigger Button -->
+                <button id="openCartBtn" onclick="toggleCartDrawer()" class="relative p-2.5 rounded-full bg-cream-dark hover:bg-bocatto-pink/40 text-bocatto-brown transition-all duration-300">
+                    <i class="fa-solid fa-cookie-bite text-xl text-bocatto-red"></i>
+                    <span id="cartCountBadge" class="absolute -top-1 -right-1 bg-bocatto-red text-white text-[11px] font-bold w-5 h-5 rounded-full flex items-center justify-center animate-bounce shadow">0</span>
+                </button>
+
+                <!-- Order via WhatsApp Nav Button -->
+                <a href="https://wa.me/584245617557?text=Hola%20Bocatto,%20deseo%20consultar%20sus%20productos." target="_blank" class="hidden sm:inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-bocatto-red hover:bg-bocatto-red-dark text-white font-semibold text-sm transition-all duration-300 shadow-lg shadow-bocatto-red/20 btn-shine">
+                    <i class="fa-brands fa-whatsapp text-lg"></i>
+                    <span>Pedir Ahora</span>
+                </a>
+
+                <!-- Mobile Menu Button -->
+                <button id="mobileMenuBtn" onclick="toggleMobileMenu()" class="md:hidden text-2xl text-bocatto-brown focus:outline-none">
+                    <i class="fa-solid fa-bars-staggered"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Menu Dropdown -->
+        <div id="mobileMenu" class="hidden md:hidden bg-cream border-b border-bocatto-red/10 px-6 py-4 space-y-3 transition-all duration-300">
+            <a href="#inicio" onclick="toggleMobileMenu()" class="block text-bocatto-brown font-medium hover:text-bocatto-red">Inicio</a>
+            <a href="#productos" onclick="toggleMobileMenu()" class="block text-bocatto-brown font-medium hover:text-bocatto-red">Productos Estrellas</a>
+            <a href="#esencia" onclick="toggleMobileMenu()" class="block text-bocatto-brown font-medium hover:text-bocatto-red">Nuestra Esencia</a>
+            <a href="#contacto" onclick="toggleMobileMenu()" class="block text-bocatto-brown font-medium hover:text-bocatto-red">Contacto</a>
+            <a href="https://wa.me/584245617557?text=Hola%20Bocatto,%20deseo%20consultar%20sus%20productos." target="_blank" class="w-full flex items-center justify-center gap-2 px-5 py-2.5 rounded-full bg-bocatto-red text-white font-semibold text-sm">
+                <i class="fa-brands fa-whatsapp"></i> Pedir por WhatsApp
+            </a>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section id="inicio" class="relative min-h-screen pt-28 pb-16 flex items-center justify-center overflow-hidden bg-gradient-to-b from-bocatto-vanilla/40 via-cream to-cream">
+        
+        <!-- Floating Particles (Background Animations) -->
+        <div class="absolute inset-0 pointer-events-none overflow-hidden z-0">
+            <!-- Floating Cookie SVG element 1 -->
+            <div class="absolute top-1/4 left-5 sm:left-12 opacity-80 animate-float-slow">
+                <svg width="60" height="60" viewBox="0 0 100 100" fill="none">
+                    <circle cx="50" cy="50" r="45" fill="#E8C39E" stroke="#C41E3A" stroke-width="4"/>
+                    <circle cx="50" cy="50" r="18" fill="#C41E3A"/>
+                    <circle cx="48" cy="46" r="5" fill="#FF8093" opacity="0.6"/>
+                </svg>
+            </div>
+            <!-- Floating Suspiro Meringue 2 -->
+            <div class="absolute top-1/3 right-8 sm:right-20 opacity-80 animate-float-fast">
+                <svg width="55" height="55" viewBox="0 0 100 100" fill="none">
+                    <path d="M50 10 C30 50, 10 70, 20 85 C30 98, 70 98, 80 85 C90 70, 70 50, 50 10 Z" fill="#F8C8DC"/>
+                    <path d="M50 10 C45 40, 35 60, 30 85" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+            </div>
+            <!-- Floating Small Cookies background -->
+            <div class="absolute bottom-20 left-1/4 opacity-60 animate-float-slow" style="animation-delay: 2s;">
+                <svg width="40" height="40" viewBox="0 0 100 100" fill="none">
+                    <circle cx="50" cy="50" r="40" fill="#E8C39E"/>
+                    <circle cx="35" cy="35" r="6" fill="#6B3E2E"/>
+                    <circle cx="65" cy="40" r="7" fill="#6B3E2E"/>
+                    <circle cx="45" cy="65" r="6" fill="#6B3E2E"/>
+                </svg>
+            </div>
+            <div class="absolute top-24 left-1/2 opacity-40 animate-float-fast" style="animation-delay: 1.5s;">
+                <svg width="45" height="45" viewBox="0 0 100 100" fill="none">
+                    <path d="M50 10 C30 50, 10 70, 20 85 C30 98, 70 98, 80 85 C90 70, 70 50, 50 10 Z" fill="#FFF5E1"/>
+                </svg>
+            </div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 w-full">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Left Hero Text Content -->
+                <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+                    <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-bocatto-red/10 border border-bocatto-red/20 text-bocatto-red text-xs sm:text-sm font-semibold tracking-wide uppercase">
+                        <i class="fa-solid fa-sparkles text-bocatto-gold"></i>
+                        Repostería Artesanal & Horneados Frescos
+                    </div>
+
+                    <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold leading-tight text-bocatto-brown">
+                        El dulce placer <br class="hidden sm:block"/>
+                        en <span class="italic font-normal text-bocatto-red relative inline-block">
+                            cada bocado
+                            <svg class="absolute -bottom-2 left-0 w-full" viewBox="0 0 200 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M2 10C50 3 150 3 198 10" stroke="#C41E3A" stroke-width="4" stroke-linecap="round"/>
+                            </svg>
+                        </span>
+                    </h1>
+
+                    <p class="text-base sm:text-lg text-bocatto-brown/80 max-w-xl mx-auto lg:mx-0 leading-relaxed font-light">
+                        Descubre la inigualable textura de nuestras afamadas <strong class="font-semibold text-bocatto-red">Galletas de Punto Rojo</strong>, los delicados y crujientes <strong class="font-semibold text-bocatto-red">Suspiros</strong> y la mejor variedad de galletas hechas con ingredientes seleccionados y pura pasión.
+                    </p>
+
+                    <!-- Hero Action Buttons -->
+                    <div class="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+                        <a href="#productos" class="w-full sm:w-auto px-8 py-4 rounded-full bg-bocatto-red hover:bg-bocatto-red-dark text-white font-bold shadow-xl shadow-bocatto-red/30 transition-all duration-300 transform hover:-translate-y-1 text-center btn-shine flex items-center justify-center gap-3">
+                            <span>Explorar Menú</span>
+                            <i class="fa-solid fa-arrow-right text-sm"></i>
+                        </a>
+
+                        <a href="https://wa.me/584245617557?text=Hola!%20Me%20gustaría%20realizar%20un%20pedido%20en%20Bocatto." target="_blank" class="w-full sm:w-auto px-8 py-4 rounded-full bg-white hover:bg-bocatto-vanilla text-bocatto-brown border border-bocatto-brown/10 font-bold shadow-md transition-all duration-300 transform hover:-translate-y-1 text-center flex items-center justify-center gap-3">
+                            <i class="fa-brands fa-whatsapp text-xl text-emerald-600"></i>
+                            <span>Pedir por WhatsApp</span>
+                        </a>
+                    </div>
+
+                    <!-- Trust Stats Badges -->
+                    <div class="pt-8 grid grid-cols-3 gap-4 border-t border-bocatto-brown/10 max-w-md mx-auto lg:mx-0 text-center lg:text-left">
+                        <div>
+                            <span class="block text-2xl font-bold font-serif text-bocatto-red">100%</span>
+                            <span class="text-xs text-bocatto-brown/70 font-medium">Artesanal</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-bold font-serif text-bocatto-brown">+5.000</span>
+                            <span class="text-xs text-bocatto-brown/70 font-medium">Bocados Entregados</span>
+                        </div>
+                        <div>
+                            <span class="block text-2xl font-bold font-serif text-bocatto-gold">4.9 ★</span>
+                            <span class="text-xs text-bocatto-brown/70 font-medium">Sabor Incomparable</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Hero Visual Collage Showcase -->
+                <div class="lg:col-span-5 relative flex justify-center items-center">
+                    
+                    <!-- Decorative Circle Backing -->
+                    <div class="w-72 h-72 sm:w-96 sm:h-96 rounded-full bg-gradient-to-tr from-bocatto-pink/40 to-bocatto-vanilla/70 absolute -z-10 blur-xl animate-pulse"></div>
+
+                    <!-- Main Hero Image Container -->
+                    <div class="relative z-10 w-full max-w-md">
+                        <div class="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white transform lg:rotate-2 hover:rotate-0 transition-all duration-500">
+                            <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=800&q=80" alt="Galletas de Punto Rojo y Galletas Artesanales Bocatto" class="w-full h-[400px] object-cover hover:scale-105 transition-transform duration-700">
+                            
+                            <div class="absolute inset-0 bg-gradient-to-t from-bocatto-brown/80 via-transparent to-transparent"></div>
+                            
+                            <div class="absolute bottom-6 left-6 right-6 text-white">
+                                <span class="bg-bocatto-red text-xs px-3 py-1 rounded-full uppercase tracking-wider font-bold">Especialidad de la Casa</span>
+                                <h3 class="text-2xl font-serif font-bold mt-1">Galletas de Punto Rojo</h3>
+                                <p class="text-xs text-white/80 font-light">Masa suave a la mantequilla con corazón de jalea artesanal</p>
+                            </div>
+                        </div>
+
+                        <!-- Floating Micro Card 1 - Suspiros -->
+                        <div class="absolute -top-6 -left-6 glass-card p-4 rounded-2xl shadow-xl flex items-center gap-3 animate-float-slow hidden sm:flex border border-white">
+                            <div class="w-12 h-12 rounded-xl bg-bocatto-pink/40 flex items-center justify-center text-2xl">
+                                🍥
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-bocatto-brown">Suspiros Rosados</h4>
+                                <p class="text-xs text-bocatto-red font-semibold">Sabor Frutal</p>
+                            </div>
+                        </div>
+
+                        <!-- Floating Micro Card 2 - Calidad -->
+                        <div class="absolute -bottom-6 -right-6 glass-card p-4 rounded-2xl shadow-xl flex items-center gap-3 animate-float-fast hidden sm:flex border border-white">
+                            <div class="w-12 h-12 rounded-xl bg-bocatto-gold/20 flex items-center justify-center text-bocatto-gold text-2xl">
+                                <i class="fa-solid fa-heart"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-sm text-bocatto-brown">Hechos con Amor</h4>
+                                <p class="text-xs text-bocatto-brown/70">Recetas Tradicionales</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURED PRODUCTS GALLERY SECTION -->
+    <section id="productos" class="py-20 bg-cream-dark/50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            
+            <!-- Section Header -->
+            <div class="text-center max-w-2xl mx-auto mb-12 space-y-3">
+                <span class="text-bocatto-red font-semibold text-sm tracking-widest uppercase">Nuestro Catálogo</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-bocatto-brown">Creaciones & Snacks</h2>
+                <p class="text-bocatto-brown/70 font-light">
+                    ¡Todos nuestros productos a <strong class="text-bocatto-red font-semibold">$2.00 al detal</strong> y a <strong class="text-bocatto-red font-semibold">$1.50 al mayor</strong> a partir de 6 unidades!
+                </p>
+                
+                <!-- Filter Tabs -->
+                <div class="flex flex-wrap justify-center gap-2 pt-6">
+                    <button onclick="filterProducts('all')" class="filter-btn active-tab px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-bocatto-red text-white shadow-md">Todos</button>
+                    <button onclick="filterProducts('galletas')" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-white text-bocatto-brown hover:bg-bocatto-pink/30">Galletas & Suspiros</button>
+                    <button onclick="filterProducts('frutos-secos')" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-white text-bocatto-brown hover:bg-bocatto-pink/30">Maní & Frutos Secos</button>
+                    <button onclick="filterProducts('caramelos')" class="filter-btn px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 bg-white text-bocatto-brown hover:bg-bocatto-pink/30">Caramelos & Dulces</button>
+                </div>
+            </div>
+
+            <!-- Products Grid Container -->
+            <div id="productsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- JavaScript will populate products here dynamically -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- OUR ESSENCE / STORY SECTION ("Nuestra Esencia") -->
+    <section id="esencia" class="py-24 relative overflow-hidden bg-cream">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                
+                <!-- Image Collage Left -->
+                <div class="lg:col-span-6 relative">
+                    <div class="relative z-10 grid grid-cols-2 gap-4">
+                        <img src="https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=600&q=80" alt="Horneado artesanal Bocatto" class="rounded-3xl shadow-xl hover:scale-105 transition-transform duration-500 h-64 w-full object-cover">
+                        <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?auto=format&fit=crop&w=600&q=80" alt="Preparación de suspiros" class="rounded-3xl shadow-xl hover:scale-105 transition-transform duration-500 h-64 w-full object-cover mt-8">
+                    </div>
+                    <!-- Decorative Backdrop Circle -->
+                    <div class="absolute -top-10 -left-10 w-72 h-72 bg-bocatto-pink/30 rounded-full blur-3xl -z-10"></div>
+                    <div class="absolute -bottom-10 -right-10 w-72 h-72 bg-bocatto-vanilla/60 rounded-full blur-3xl -z-10"></div>
+                </div>
+
+                <!-- Text Story Content Right -->
+                <div class="lg:col-span-6 space-y-6">
+                    <span class="text-bocatto-red font-semibold text-sm tracking-widest uppercase">Nuestra Esencia</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-bocatto-brown leading-tight">
+                        Magia horneada con <span class="italic text-bocatto-red">tradición y detalle</span>
+                    </h2>
+
+                    <p class="text-bocatto-brown/80 leading-relaxed font-light">
+                        En <strong class="font-semibold text-bocatto-brown">Bocatto</strong>, creemos que una buena galleta no es solo un postre, es un instante de felicidad. Nuestra especialidad en <strong>Galletas de Punto Rojo</strong> nace de una receta familiar perfeccionada, donde la mantequilla cremosa se funde con el punto exacto de la jalea artesanal de fresa y guayaba.
+                    </p>
+
+                    <p class="text-bocatto-brown/80 leading-relaxed font-light">
+                        Además, nuestros <strong>Suspiros</strong> son delicadamente batidos a mano para lograr esa levedad única que parece derretirse al instante en tu paladar. Cada lote es horneado diariamente para garantizar frescura y ese aroma reconfortante que llena el hogar.
+                    </p>
+
+                    <!-- Features Checklist -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-bocatto-red/10 text-bocatto-red flex items-center justify-center text-sm">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-sm font-semibold text-bocatto-brown">Ingredientes 100% Naturales</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-bocatto-red/10 text-bocatto-red flex items-center justify-center text-sm">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-sm font-semibold text-bocatto-brown">Horneado Diario Garantizado</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-bocatto-red/10 text-bocatto-red flex items-center justify-center text-sm">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-sm font-semibold text-bocatto-brown">Empaques Para Regalo</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 rounded-full bg-bocatto-red/10 text-bocatto-red flex items-center justify-center text-sm">
+                                <i class="fa-solid fa-check"></i>
+                            </div>
+                            <span class="text-sm font-semibold text-bocatto-brown">Pedidos Personalizados</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS / BANNER -->
+    <section class="py-16 bg-bocatto-red text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-6">
+            <i class="fa-solid fa-quote-left text-4xl text-white/30"></i>
+            <h3 class="font-serif text-2xl sm:text-4xl font-bold max-w-3xl mx-auto leading-relaxed">
+                "Las galletas de punto rojo de Bocatto son adictivas, la mermelada es deliciosa y los suspiros son súper suaves. ¡Ideal para acompañar el café!"
+            </h3>
+            <p class="text-sm font-semibold uppercase tracking-widest text-bocatto-vanilla">— Camila R., Cliente Feliz</p>
+        </div>
+        <!-- Decorative pattern background -->
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    </section>
+
+    <!-- CONTACT / ORDER FORM SECTION -->
+    <section id="contacto" class="py-24 bg-cream-dark/40 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+                
+                <!-- Contact Info Side -->
+                <div class="lg:col-span-5 space-y-8">
+                    <div>
+                        <span class="text-bocatto-red font-semibold text-sm tracking-widest uppercase">Haz tu pedido</span>
+                        <h2 class="font-serif text-4xl font-bold text-bocatto-brown mt-1">¿Tienes un evento o antojo especial?</h2>
+                        <p class="text-bocatto-brown/70 font-light mt-3">
+                            Escríbenos directamente o completa el formulario para coordinar entregas personales, cajas de regalo o pedidos al mayor.
+                        </p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <!-- Direct WhatsApp Box -->
+                        <a href="https://wa.me/584245617557" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow border border-bocatto-brown/5 group">
+                            <div class="w-12 h-12 rounded-xl bg-emerald-100 text-emerald-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-bocatto-brown">WhatsApp Directo</h4>
+                                <p class="text-xs text-bocatto-brown/70">0424-5617557 (+58 424-5617557)</p>
+                            </div>
+                        </a>
+
+                        <!-- Location Box -->
+                        <div class="flex items-center gap-4 p-4 rounded-2xl bg-white shadow-sm border border-bocatto-brown/5">
+                            <div class="w-12 h-12 rounded-xl bg-bocatto-red/10 text-bocatto-red flex items-center justify-center text-xl">
+                                <i class="fa-solid fa-location-dot"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-bocatto-brown">Taller de Horno</h4>
+                                <p class="text-xs text-bocatto-brown/70">Entregas y Pick-Up con Previa Cita</p>
+                            </div>
+                        </div>
+
+                        <!-- Instagram Box -->
+                        <a href="https://instagram.com" target="_blank" class="flex items-center gap-4 p-4 rounded-2xl bg-white shadow-sm hover:shadow-md transition-shadow border border-bocatto-brown/5 group">
+                            <div class="w-12 h-12 rounded-xl bg-pink-100 text-pink-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform">
+                                <i class="fa-brands fa-instagram"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-bocatto-brown">Instagram</h4>
+                                <p class="text-xs text-bocatto-brown/70">@bocatto.galletas</p>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Interactive Form Side -->
+                <div class="lg:col-span-7">
+                    <div class="glass-card p-8 rounded-3xl shadow-xl border border-white">
+                        <h3 class="font-serif text-2xl font-bold text-bocatto-brown mb-6">Mensaje Directo o Cotización</h3>
+                        
+                        <form id="contactForm" onsubmit="handleFormSubmit(event)" class="space-y-5">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-bocatto-brown mb-2">Nombre Completo</label>
+                                    <input type="text" required placeholder="Tu nombre" class="w-full px-4 py-3 rounded-xl border border-bocatto-brown/10 focus:border-bocatto-red focus:ring-2 focus:ring-bocatto-red/20 outline-none transition-all bg-white/80 text-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-xs font-bold uppercase tracking-wider text-bocatto-brown mb-2">Teléfono / WhatsApp</label>
+                                    <input type="tel" required placeholder="Ej: 0412 1234567" class="w-full px-4 py-3 rounded-xl border border-bocatto-brown/10 focus:border-bocatto-red focus:ring-2 focus:ring-bocatto-red/20 outline-none transition-all bg-white/80 text-sm">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-bocatto-brown mb-2">Producto de Interés</label>
+                                <select class="w-full px-4 py-3 rounded-xl border border-bocatto-brown/10 focus:border-bocatto-red focus:ring-2 focus:ring-bocatto-red/20 outline-none transition-all bg-white/80 text-sm">
+                                    <option>Galletas de Punto Rojo</option>
+                                    <option>Suspiros Artesanales</option>
+                                    <option>Galletas Surtidas Artesanales</option>
+                                    <option>Maní Crujiente</option>
+                                    <option>Surtido Frutos Secos</option>
+                                    <option>Paquete de Caramelos Surtidos</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-xs font-bold uppercase tracking-wider text-bocatto-brown mb-2">Detalles del Pedido</label>
+                                <textarea rows="4" required placeholder="Indícanos la cantidad, fecha requerida o cualquier detalle especial..." class="w-full px-4 py-3 rounded-xl border border-bocatto-brown/10 focus:border-bocatto-red focus:ring-2 focus:ring-bocatto-red/20 outline-none transition-all bg-white/80 text-sm"></textarea>
+                            </div>
+
+                            <button type="submit" class="w-full py-4 rounded-xl bg-bocatto-red hover:bg-bocatto-red-dark text-white font-bold text-sm shadow-lg shadow-bocatto-red/30 transition-all btn-shine flex items-center justify-center gap-2">
+                                <i class="fa-paper-plane fa-solid"></i>
+                                <span>Enviar Consulta por WhatsApp</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-bocatto-brown text-white py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6 border-b border-white/10 pb-8">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-bocatto-red flex items-center justify-center text-white text-xl font-serif font-bold">
+                        B
+                    </div>
+                    <span class="font-serif text-2xl font-bold tracking-tight text-white">Bocatto<span class="text-bocatto-red">.</span></span>
+                </div>
+
+                <div class="flex gap-6 text-sm text-white/70">
+                    <a href="#inicio" class="hover:text-bocatto-pink transition-colors">Inicio</a>
+                    <a href="#productos" class="hover:text-bocatto-pink transition-colors">Productos</a>
+                    <a href="#esencia" class="hover:text-bocatto-pink transition-colors">Esencia</a>
+                    <a href="#contacto" class="hover:text-bocatto-pink transition-colors">Contacto</a>
+                </div>
+
+                <div class="flex gap-4 text-lg">
+                    <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-bocatto-red flex items-center justify-center transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-bocatto-red flex items-center justify-center transition-colors"><i class="fa-brands fa-tiktok"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-white/10 hover:bg-bocatto-red flex items-center justify-center transition-colors"><i class="fa-brands fa-facebook-f"></i></a>
+                </div>
+            </div>
+
+            <div class="pt-8 text-center text-xs text-white/50">
+                <p>&copy; <span id="year"></span> Bocatto Repostería Artesanal. Todos los derechos reservados. Hecho con dulce amor.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- FLOATING WHATSAPP QUICK BUTTON -->
+    <a href="https://wa.me/584245617557?text=Hola%20Bocatto,%20quiero%20hacer%20un%20pedido!" target="_blank" class="fixed bottom-6 right-6 z-40 w-14 h-14 bg-emerald-500 text-white rounded-full flex items-center justify-center text-3xl shadow-2xl hover:scale-110 transition-transform duration-300 animate-pulse-glow" title="Chatear por WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <!-- CART / ORDER DRAWER SIDEBAR -->
+    <div id="cartDrawer" class="fixed inset-y-0 right-0 z-50 w-full max-w-md bg-cream shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+        <!-- Drawer Header -->
+        <div class="p-6 bg-bocatto-brown text-white flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-basket-shopping text-bocatto-red text-xl"></i>
+                <h3 class="font-serif text-lg font-bold">Tu Pedido Bocatto</h3>
+            </div>
+            <button onclick="toggleCartDrawer()" class="text-white/70 hover:text-white text-xl">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+
+        <!-- Drawer Cart Items Body -->
+        <div id="cartItemsContainer" class="p-6 flex-1 overflow-y-auto space-y-4">
+            <!-- Items rendered via JavaScript -->
+        </div>
+
+        <!-- Drawer Footer -->
+        <div class="p-6 border-t border-bocatto-brown/10 bg-white space-y-4">
+            <div class="flex justify-between items-center text-lg font-bold text-bocatto-brown">
+                <span>Total Estimado:</span>
+                <span id="cartTotal" class="text-bocatto-red font-serif">$0.00</span>
+            </div>
+            <button onclick="sendCartToWhatsApp()" class="w-full py-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-sm shadow-lg transition-all flex items-center justify-center gap-2 btn-shine">
+                <i class="fa-brands fa-whatsapp text-lg"></i>
+                <span>Enviar Pedido a WhatsApp</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- PRODUCT DETAIL MODAL -->
+    <div id="productModal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-cream rounded-3xl max-w-xl w-full overflow-hidden shadow-2xl border border-white transform transition-all duration-300 relative scale-95 opacity-0" id="modalContent">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-10 w-9 h-9 rounded-full bg-white/80 hover:bg-white text-bocatto-brown flex items-center justify-center shadow">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2">
+                <img id="modalImg" src="" alt="" class="w-full h-64 sm:h-full object-cover">
+                <div class="p-6 flex flex-col justify-between space-y-4">
+                    <div>
+                        <span id="modalCategory" class="text-xs font-bold uppercase tracking-wider text-bocatto-red"></span>
+                        <h3 id="modalTitle" class="font-serif text-2xl font-bold text-bocatto-brown mt-1"></h3>
+                        <p id="modalDesc" class="text-xs text-bocatto-brown/70 mt-2 font-light leading-relaxed"></p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs text-bocatto-brown/70 font-semibold">Precio por caja:</span>
+                            <span id="modalPrice" class="font-serif text-xl font-bold text-bocatto-red"></span>
+                        </div>
+
+                        <button id="modalAddBtn" class="w-full py-3 rounded-xl bg-bocatto-red hover:bg-bocatto-red-dark text-white font-bold text-sm shadow-md transition-all">
+                            Agregar al Pedido
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Set dynamic current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Products Database Array
+        const products = [
+            {
+                id: '1',
+                category: 'galletas',
+                title: 'Galletas Punto Rojo Clásicas',
+                subtitle: 'Mantequilla y Jalea Artesanal',
+                desc: 'La joya de la casa. Galletas suaves de mantequilla horneadas a fuego lento con un dulce corazón de jalea roja artesanal.',
+                priceRetail: 2.00,
+                priceWholesale: 1.50,
+                image: 'https://images.unsplash.com/photo-1558961363-fa8fdf82db35?auto=format&fit=crop&w=600&q=80',
+                tag: 'Más Vendido'
+            },
+            {
+                id: '2',
+                category: 'galletas',
+                title: 'Suspiros Artesanales',
+                subtitle: 'Ligeros y Crujientes',
+                desc: 'Delicados suspiros horneados lentamente con notas de vainilla pura. Se deshacen suavemente en la boca.',
+                priceRetail: 2.00,
+                priceWholesale: 1.50,
+                image: 'https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=600&q=80',
+                tag: 'Favorito'
+            },
+            {
+                id: '3',
+                category: 'galletas',
+                title: 'Galletas Surtidas Artesanales',
+                subtitle: 'Variedad de la Casa',
+                desc: 'Crujientes y deliciosas pastas secas hechas con mantequilla fresca e ingredientes seleccionados.',
+                priceRetail: 2.00,
+                priceWholesale: 1.50,
+                image: 'https://images.unsplash.com/photo-1499636136210-6f4ee915583e?auto=format&fit=crop&w=600&q=80',
+                tag: 'Recomendado'
+            },
+            {
+                id: '4',
+                category: 'frutos-secos',
+                title: 'Maní Salado & Tostado',
+                subtitle: 'Snack Crocante',
+                desc: 'Maní crocante tostado en su punto justo con el toque ideal de sal fina para tus antojos.',
+                priceRetail: 2.00,
+                priceWholesale: 1.50,
+                image: 'https://images.unsplash.com/photo-1536591375315-19895658238f?auto=format&fit=crop&w=600&q=80',
+                tag: 'Nuevo'
+            },
+            {
+                id: '5',
+                category: 'frutos-secos',
+                title: 'Surtido de Frutos Secos',
+                subtitle: 'Mix Saludable & Energético',
+                desc: 'Una exquisita mezcla de pasas, avellanas, almendras y nueces crujientes de primera calidad.',
+                priceRetail: 2.00,
+                priceWholesale: 1.50,
+                image: 'https://images.unsplash.com/photo-1608797178974-15b35a64ede9?auto=format&fit=crop&w=600&q=80',
+                tag: 'Saludable'
+            },
+            {
+                id: '6',
+                category: 'caramelos',
+                title: 'Paquete de Caramelos Surtidos',
+                subtitle: 'Dulces & Sabores Frutales',
+                desc: 'Bolsa de caramelos variados con explosión de sabores dulces y frutales para alegrar el día.',
+                priceRetail: 2.00,
+                priceWholesale: 1.50,
+                image: 'https://images.unsplash.com/photo-1581798459219-318e76aecc7b?auto=format&fit=crop&w=600&q=80',
+                tag: 'Especial'
+            }
+        ];
+
+        let cart = [];
+
+        // Render Products in Grid
+        function renderProducts(items) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = items.map(p => `
+                <div class="card-3d glass-card rounded-3xl overflow-hidden shadow-lg border border-white flex flex-col justify-between group">
+                    <div class="relative overflow-hidden h-56 cursor-pointer" onclick="openProductModal('${p.id}')">
+                        <img src="${p.image}" alt="${p.title}" onerror="this.onerror=null;this.src='https://placehold.co/600x400/FFF5E1/3D2314?text=Bocatto+Snacks';" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                        <span class="absolute top-4 left-4 bg-bocatto-red text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider shadow">
+                            ${p.tag}
+                        </span>
+                        <span class="absolute top-4 right-4 bg-bocatto-gold text-bocatto-brown text-[10px] font-extrabold px-2.5 py-1 rounded-full shadow">
+                            Mayor: $1.50 (≥6)
+                        </span>
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[11px] font-bold text-bocatto-red uppercase tracking-wider">${p.subtitle}</span>
+                            <h3 class="font-serif text-xl font-bold text-bocatto-brown mt-1 group-hover:text-bocatto-red transition-colors cursor-pointer" onclick="openProductModal('${p.id}')">${p.title}</h3>
+                            <p class="text-xs text-bocatto-brown/70 font-light mt-2 line-clamp-2">${p.desc}</p>
+                        </div>
+
+                        <div class="pt-4 border-t border-bocatto-brown/10 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-bocatto-brown/60 block">Precio Detal</span>
+                                <span class="font-serif text-xl font-bold text-bocatto-brown">$${p.priceRetail.toFixed(2)}</span>
+                            </div>
+
+                            <div class="flex items-center gap-2">
+                                <button onclick="openProductModal('${p.id}')" class="w-9 h-9 rounded-full bg-cream hover:bg-bocatto-pink/30 text-bocatto-brown flex items-center justify-center transition-colors" title="Ver Detalles">
+                                    <i class="fa-solid fa-eye text-xs"></i>
+                                </button>
+                                <button onclick="addToCart('${p.id}')" class="px-4 py-2 rounded-full bg-bocatto-red hover:bg-bocatto-red-dark text-white text-xs font-bold transition-all shadow-md flex items-center gap-1.5">
+                                    <i class="fa-solid fa-plus"></i> Agregar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filter Functionality
+        function filterProducts(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-bocatto-red', 'text-white');
+                btn.classList.add('bg-white', 'text-bocatto-brown');
+            });
+
+            event.target.classList.remove('bg-white', 'text-bocatto-brown');
+            event.target.classList.add('bg-bocatto-red', 'text-white');
+
+            if (category === 'all') {
+                renderProducts(products);
+            } else {
+                const filtered = products.filter(p => p.category === category);
+                renderProducts(filtered);
+            }
+        }
+
+        // Cart Drawer Handlers
+        function toggleCartDrawer() {
+            const drawer = document.getElementById('cartDrawer');
+            drawer.classList.toggle('translate-x-full');
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+
+            updateCartUI();
+            toggleCartDrawer();
+        }
+
+        function updateQuantity(productId, delta) {
+            const item = cart.find(i => i.id === productId);
+            if (item) {
+                item.quantity += delta;
+                if (item.quantity <= 0) {
+                    cart = cart.filter(i => i.id !== productId);
+                }
+            }
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const container = document.getElementById('cartItemsContainer');
+            const countBadge = document.getElementById('cartCountBadge');
+            const totalElement = document.getElementById('cartTotal');
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+
+            // Wholesale logic: if total units in cart >= 6, unit price is $1.50, otherwise $2.00
+            const isWholesale = totalCount >= 6;
+
+            const totalPrice = cart.reduce((sum, item) => {
+                const unitPrice = isWholesale ? item.priceWholesale : item.priceRetail;
+                return sum + (unitPrice * item.quantity);
+            }, 0);
+
+            countBadge.textContent = totalCount;
+            totalElement.textContent = `$${totalPrice.toFixed(2)}`;
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12 text-bocatto-brown/60 space-y-3">
+                        <i class="fa-solid fa-cookie text-4xl text-bocatto-pink"></i>
+                        <p class="text-sm font-medium">Tu carrito está vacío.</p>
+                        <p class="text-xs">¡Agrega tus productos preferidos!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = `
+                ${isWholesale ? `
+                    <div class="bg-emerald-100 text-emerald-800 text-xs font-bold p-3 rounded-xl flex items-center gap-2 mb-3">
+                        <i class="fa-solid fa-tag text-sm"></i>
+                        ¡Felicidades! Se ha aplicado la tarifa al mayor ($1.50 c/u).
+                    </div>
+                ` : `
+                    <div class="bg-bocatto-vanilla text-bocatto-brown text-xs p-3 rounded-xl border border-bocatto-gold/30 mb-3">
+                        💡 <strong>Promo al mayor:</strong> Lleva 6 o más unidades en total para pagar solo <strong>$1.50 cada uno</strong> (Faltan ${6 - totalCount} unidad/es).
+                    </div>
+                `}
+                ${cart.map(item => {
+                    const currentPrice = isWholesale ? item.priceWholesale : item.priceRetail;
+                    return `
+                        <div class="flex items-center gap-4 bg-white p-3 rounded-2xl border border-bocatto-brown/5 shadow-sm mb-2">
+                            <img src="${item.image}" alt="${item.title}" class="w-16 h-16 rounded-xl object-cover">
+                            <div class="flex-1">
+                                <h4 class="font-bold text-sm text-bocatto-brown">${item.title}</h4>
+                                <div class="flex items-center gap-2">
+                                    <span class="text-xs text-bocatto-red font-semibold">$${(currentPrice * item.quantity).toFixed(2)}</span>
+                                    <span class="text-[10px] text-bocatto-brown/50">($${currentPrice.toFixed(2)} c/u)</span>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-2 bg-cream px-2 py-1 rounded-lg border border-bocatto-brown/10">
+                                <button onclick="updateQuantity('${item.id}', -1)" class="text-xs text-bocatto-brown hover:text-bocatto-red font-bold px-1">-</button>
+                                <span class="text-xs font-bold">${item.quantity}</span>
+                                <button onclick="updateQuantity('${item.id}', 1)" class="text-xs text-bocatto-brown hover:text-bocatto-red font-bold px-1">+</button>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            `;
+        }
+
+        function sendCartToWhatsApp() {
+            if (cart.length === 0) {
+                alert('Agrega al menos un producto antes de enviar tu pedido.');
+                return;
+            }
+
+            const totalCount = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const isWholesale = totalCount >= 6;
+
+            let message = `¡Hola Bocatto! 👋 Deseo realizar el siguiente pedido (${isWholesale ? 'Tarifa al Mayor' : 'Tarifa Detal'}):\n\n`;
+            
+            cart.forEach(item => {
+                const unitPrice = isWholesale ? item.priceWholesale : item.priceRetail;
+                message += `• ${item.quantity}x ${item.title} ($${(unitPrice * item.quantity).toFixed(2)})\n`;
+            });
+
+            const total = cart.reduce((sum, item) => {
+                const unitPrice = isWholesale ? item.priceWholesale : item.priceRetail;
+                return sum + (unitPrice * item.quantity);
+            }, 0);
+
+            message += `\n*Total de unidades:* ${totalCount}\n*Total Estimado:* $${total.toFixed(2)}\n\n¿Me indican los datos para el pago y la entrega? ¡Muchas gracias!`;
+
+            const encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/584245617557?text=${encodedMessage}`, '_blank');
+        }
+
+        // Product Modal Functions
+        function openProductModal(productId) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            document.getElementById('modalImg').src = product.image;
+            document.getElementById('modalCategory').textContent = product.subtitle;
+            document.getElementById('modalTitle').textContent = product.title;
+            document.getElementById('modalDesc').textContent = product.desc;
+            document.getElementById('modalPrice').innerHTML = `
+                <span>$2.00 detal</span> <br/>
+                <span class="text-xs text-bocatto-gold font-bold">¡$1.50 al mayor (≥ 6 uds)!</span>
+            `;
+
+            const addBtn = document.getElementById('modalAddBtn');
+            addBtn.onclick = function() {
+                addToCart(product.id);
+                closeProductModal();
+            };
+
+            const modal = document.getElementById('productModal');
+            const modalContent = document.getElementById('modalContent');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            
+            setTimeout(() => {
+                modalContent.classList.remove('scale-95', 'opacity-0');
+                modalContent.classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function closeProductModal() {
+            const modal = document.getElementById('productModal');
+            const modalContent = document.getElementById('modalContent');
+            
+            modalContent.classList.remove('scale-100', 'opacity-100');
+            modalContent.classList.add('scale-95', 'opacity-0');
+
+            setTimeout(() => {
+                modal.classList.remove('flex');
+                modal.classList.add('hidden');
+            }, 200);
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Contact Form WhatsApp submit simulation
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            const inputs = e.target.querySelectorAll('input, select, textarea');
+            const name = inputs[0].value;
+            const phone = inputs[1].value;
+            const product = inputs[2].value;
+            const details = inputs[3].value;
+
+            const text = `Hola Bocatto, mi nombre es ${name} (${phone}). Quisiera información sobre ${product}.\n\nDetalles: ${details}`;
+            window.open(`https://wa.me/584245617557?text=${encodeURIComponent(text)}`, '_blank');
+        }
+
+        // Initial Load
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts(products);
+            updateCartUI();
+        });
+    </script>
+</body>
+</html>
